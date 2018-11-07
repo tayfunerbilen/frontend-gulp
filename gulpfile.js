@@ -4,7 +4,6 @@ const sass = require('gulp-sass');
 const minifyCSS = require('gulp-csso');
 const minifyImg = require('gulp-imagemin');
 const minifyJS = require('gulp-uglify');
-const minifyHTML = require('gulp-htmlmin');
 const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const del = require('del');
@@ -16,7 +15,6 @@ gulp.task('browser-sync', () => {
             baseDir: "dist"
         }
     });
-    gulp.watch("src/**/*.html").on('change', browserSync.reload);
 });
 
 gulp.task('css', () => {
@@ -30,7 +28,7 @@ gulp.task('css', () => {
         .pipe(autoprefixer())
         .pipe(concat('app.min.css'))
         .pipe(gulp.dest('dist/css'))
-        .pipe(browserSync.stream())
+        .pipe(browserSync.stream());
 });
 
 gulp.task('js', () => {
@@ -38,7 +36,7 @@ gulp.task('js', () => {
         .pipe(concat('app.min.js'))
         .pipe(minifyJS())
         .pipe(gulp.dest('dist/js'))
-        .pipe(browserSync.stream())
+        .pipe(browserSync.stream());
 });
 
 gulp.task('html', () => {
@@ -47,7 +45,8 @@ gulp.task('html', () => {
             collapseWhitespace: true,
             removeComments: true
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('img', () => {
