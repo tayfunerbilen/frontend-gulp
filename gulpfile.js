@@ -41,10 +41,6 @@ gulp.task('js', () => {
 
 gulp.task('html', () => {
     gulp.src('src/**/*.html')
-        .pipe(minifyHTML({
-            collapseWhitespace: true,
-            removeComments: true
-        }))
         .pipe(gulp.dest('dist'))
         .pipe(browserSync.stream());
 });
