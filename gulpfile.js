@@ -16,13 +16,13 @@ const resultDirectory="front"
 gulp.task('browser-sync', () => {
     browserSync.init({
         server: {
-            baseDir: homeDirectory
+            baseDir: resultDirectory
         }
     });
 });
 
 gulp.task('css', () => {
-    return gulp.src(resultDirectory+'/scss/**/*.scss')
+    return gulp.src(homeDirectory+'/scss/**/*.scss')
         .pipe(sass({
             outputStyle: 'nested',
             precision: 10,
@@ -31,42 +31,42 @@ gulp.task('css', () => {
         .pipe(minifyCSS())
         .pipe(autoprefixer())
         .pipe(concat('app.min.css'))
-        .pipe(gulp.dest(homeDirectory+'/css'))
+        .pipe(gulp.dest(resultDirectory+'/css'))
         .pipe(browserSync.stream());
 });
 
 gulp.task('js', () => {
-    return gulp.src(resultDirectory+'/js/**/*.js')
+    return gulp.src(homeDirectory+'/js/**/*.js')
         .pipe(concat('app.min.js'))
         .pipe(minifyJS())
-        .pipe(gulp.dest(homeDirectory+'/js'))
+        .pipe(gulp.dest(resultDirectory+'/js'))
         .pipe(browserSync.stream());
 });
 
 gulp.task('html', () => {
-    gulp.src(resultDirectory+'/**/*.html')
-        .pipe(gulp.dest(homeDirectory))
+    gulp.src(homeDirectory+'/**/*.html')
+        .pipe(gulp.dest(resultDirectory))
         .pipe(browserSync.stream());
 });
 
 gulp.task('img', () => {
-    gulp.src(resultDirectory+'/img/**/*')
+    gulp.src(homeDirectory+'/img/**/*')
         .pipe(minifyImg())
-        .pipe(gulp.dest(homeDirectory+'/img'));
+        .pipe(gulp.dest(resultDirectory+'/img'));
 });
 
 gulp.task('copy:libs', function() {
     gulp.src(npmDist(), {base:'./node_modules'})
-      .pipe(gulp.dest('./'+homeDirectory+'/libs'));
+      .pipe(gulp.dest('./'+resultDirectory+'/libs'));
 });
 
-gulp.task('delete', () => del([homeDirectory+'/css', homeDirectory+'/js', homeDirectory+'/img', homeDirectory+'/**/*.html']));
+gulp.task('delete', () => del([resultDirectory+'/css', resultDirectory+'/js', resultDirectory+'/img', resultDirectory+'/**/*.html']));
 
 gulp.task('watch', () => {
-    gulp.watch(resultDirectory+"/scss/**/*.scss", ['css']);
-    gulp.watch(resultDirectory+"/js/**/*.js", ['js']);
-    gulp.watch(resultDirectory+"/img/**/*", ['img']);
-    gulp.watch(resultDirectory+"/**/*.html", ['html']);
+    gulp.watch(homeDirectory+"/scss/**/*.scss", ['css']);
+    gulp.watch(homeDirectory+"/js/**/*.js", ['js']);
+    gulp.watch(homeDirectory+"/img/**/*", ['img']);
+    gulp.watch(homeDirectory+"/**/*.html", ['html']);
 });
 
 gulp.task('default', () => {
