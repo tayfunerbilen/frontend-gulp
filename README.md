@@ -1,7 +1,9 @@
 # frontend-gulp
 Öncelikle gulp kurmanız gerekiyor
-```npm install gulp-cli -g
-npm install gulp -D```
+
+```npm install gulp-cli -g```
+
+```npm install gulp -D```
 
 Bu front-end işlerinize gulp ile başlamanız için bir başlangıç paketidir.
 
