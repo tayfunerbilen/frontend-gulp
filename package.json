@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-npm-dist": "^1.0.3"
+  },
   "devDependencies": {
     "browser-sync": "^2.26.3",
     "del": "^3.0.0",
