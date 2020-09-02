@@ -46,8 +46,11 @@ gulp.task('html', () => {
 });
 
 gulp.task('img', () => {
+    /*
+    Eğer resimleri minify etmek isterseniz yorum satırını kaldırabilirsiniz.
+    */
     gulp.src('src/img/**/*')
-        .pipe(minifyImg())
+        // .pipe(minifyImg())
         .pipe(gulp.dest('dist/img'));
 });
 
