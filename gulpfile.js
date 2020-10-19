@@ -7,7 +7,6 @@ const minifyJS = require('gulp-uglify');
 const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const del = require('del');
-const runSequence = require('run-sequence');
 
 gulp.task('browser-sync', () => {
     browserSync.init({
@@ -57,20 +56,10 @@ gulp.task('img', () => {
 gulp.task('delete', () => del(['dist/css', 'dist/js', 'dist/img', 'dist/**/*.html']));
 
 gulp.task('watch', () => {
-    gulp.watch("src/scss/**/*.scss", ['css']);
-    gulp.watch("src/js/**/*.js", ['js']);
-    gulp.watch("src/img/**/*", ['img']);
-    gulp.watch("src/**/*.html", ['html']);
+    gulp.watch("src/scss/**/*.scss", gulp.task('css'));
+    gulp.watch("src/js/**/*.js", gulp.task('js'));
+    gulp.watch("src/img/**/*.img", gulp.task('img'));
+    gulp.watch("src/**/*.html", gulp.task('html'));
 });
 
-gulp.task('default', () => {
-    runSequence(
-        'delete',
-        'html',
-        'css',
-        'js',
-        'img',
-        'browser-sync',
-        'watch'
-    );
-});
+gulp.task('default', gulp.series('delete', gulp.parallel('html', 'css', 'js', 'img', 'browser-sync', 'watch')));
